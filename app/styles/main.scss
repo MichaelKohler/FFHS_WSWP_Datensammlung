@@ -1,8 +1,13 @@
 // bower:scss
 // endbower
 
+// ELEMENTS
+///////////////////
+
 body {
   padding: 0;
+  font-family: 'Open Sans', sans-serif;
+  background-color: #F5F5FF;
 }
 
 .browsehappy {
@@ -10,4 +15,85 @@ body {
   background: #ccc;
   color: #000;
   padding: 0.2em 0;
+}
+
+// CONTAINER
+///////////////////
+
+.container {
+  margin: 1em 5em 1em 5em;
+
+  .errorMessage {
+    color: #fff;
+    padding: 10px 10px 10px 10px;
+    background-color: #e74c3c;
+    border-radius: 5px;
+    border: 1px solid #c0392b;
+  }
+
+  .committer {
+    color: #004444;
+    font-weight: bold;
+  }
+}
+
+// BUTTONS
+///////////////////
+
+.btn {
+  position: relative;
+  margin: 30px 15px 30px 0px;
+  padding: 12px 24px;
+  overflow: hidden;
+  border-width: 0;
+  outline: none;
+  border-radius: 2px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, .6);
+  background-color: #2ecc71;
+  color: #ecf0f1;
+  font-size: 1em;
+  transition: background-color .3s;
+
+  &:hover, &:focus {
+    background-color: #27ae60;
+  }
+
+  &:before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: block;
+    width: 0;
+    padding-top: 0;
+    border-radius: 100%;
+    background-color: rgba(236, 240, 241, .3);
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
+
+  &:active:before {
+    width: 120%;
+    padding-top: 120%;
+    transition: width .2s ease-out, padding-top .2s ease-out;
+  }
+
+  &.orange {
+    background-color: #e67e22;
+
+    &:hover, &:focus {
+      background-color: #d35400;
+    }
+  }
+
+  &.red {
+    background-color: #e74c3c;
+
+    &:hover, &:focus {
+      background-color: #c0392b;
+    }
+  }
 }

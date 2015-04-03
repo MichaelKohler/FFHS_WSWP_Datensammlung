@@ -1,1 +1,25 @@
-Test
+<h1>GitHub Commits for Gaia</h1>
+
+<p class="errorMessage">{{ error }}</p>
+
+<p ng-show="isLoading">Loading..</p>
+
+<div id="commitActions">
+  <button class="btn" ng-click="getNextCommits()">Get Next</button>
+  <button class="btn orange" ng-click="getRawData()">Get Raw Data</button>
+</div>
+
+<div id="commits">
+  <p># of commits fetched: {{ commits.length }}</p>
+
+  <h3>Commits</h3>
+  <ul>
+    <li ng-repeat="commit in commits">{{ commit.commit.committer.date | date:'yyyy-MM-dd HH:mm' }} - &quot;{{ commit.commit.message }}&quot; by <span class="committer">{{ commit.commit.author.name }}</span></li>
+  </ul>
+
+  <div id="rawCommits" ng-show="rawCommits">
+    <h3>Raw Commits</h3>
+    <p>{{ rawCommits }}</p>
+  </div>
+
+</div>
