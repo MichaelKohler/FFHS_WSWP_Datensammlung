@@ -4,7 +4,6 @@
 angular.module('ffhsWswpDatensammlungApp')
   .controller('MainCtrl', function ($scope, $localStorage, GitHubCommits) {
     $scope.commits = [];
-    $scope.error = '';
     $scope.$storage = $localStorage;
 
     $scope.getRawData = function () {
