@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('ffhsWswpDatensammlungApp')
-  .factory('GitHubCommits', function ($rootScope, $q, $http) {
+  .factory('GitHubCommits', function ($rootScope, $q, $http, GitHubAuth) {
     var url = 'https://api.github.com/repos/mozilla-b2g/gaia/commits';
 
     return {
@@ -23,7 +23,8 @@ angular.module('ffhsWswpDatensammlungApp')
             page: this.currentPage
           },
           headers: {
-            'Content-Type':'application/json; charset=UTF-8'
+            'Content-Type': 'application/json; charset=UTF-8',
+            'Authorization': 'Basic ' + GitHubAuth.token
           }
         }).success(function (data) {
           deferred.resolve(data);

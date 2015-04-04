@@ -2,9 +2,10 @@
 
 
 angular.module('ffhsWswpDatensammlungApp')
-  .controller('MainCtrl', function ($scope, $localStorage, GitHubCommits) {
+  .controller('MainCtrl', function ($scope, $localStorage, GitHubCommits, GitHubAuth) {
     $scope.commits = [];
     $scope.$storage = $localStorage;
+    $scope.isAuthorized = false;
 
     $scope.getRawData = function () {
       $scope.rawCommits = JSON.stringify($scope.commits);
@@ -30,7 +31,16 @@ angular.module('ffhsWswpDatensammlungApp')
       delete $scope.$storage.commits;
     };
 
+    // Auth with GitHub
+    GitHubAuth.auth().then(function (data) {
+      $scope.isAuthorized = true;
+    }, function (error) {
+      $scope.error = error;
+    });
+
     // Get first set of commits if there is nothing in LocalStorage, otherwise load it from localStorage
+    // Since we're not hosting this anywhere right now, we can do that without Auth if the request from above hasn't
+    // completed yet.
     if (!$scope.$storage.commits || $scope.$storage.commits.length === 0) {
       $scope.getNextCommits();
     }
