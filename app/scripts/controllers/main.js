@@ -2,9 +2,10 @@
 
 
 angular.module('ffhsWswpDatensammlungApp')
-  .controller('MainCtrl', function ($scope, GitHubCommits) {
+  .controller('MainCtrl', function ($scope, $localStorage, GitHubCommits) {
     $scope.commits = [];
     $scope.error = '';
+    $scope.$storage = $localStorage;
 
     $scope.getRawData = function () {
       $scope.rawCommits = JSON.stringify($scope.commits);
@@ -17,11 +18,26 @@ angular.module('ffhsWswpDatensammlungApp')
       GitHubCommits.getNextCommits(nextPage).then(function (commits) {
         $scope.isLoading = false;
         $scope.commits = $scope.commits.concat(commits);
+        $scope.$storage.commits = $scope.commits;
+        $scope.$storage.page = GitHubCommits.currentPage;
       }, function (error) {
         $scope.isLoading = false;
         $scope.error = error;
       });
     };
 
-    $scope.getNextCommits();
+    $scope.deleteStorage = function () {
+      delete $scope.$storage.page;
+      delete $scope.$storage.commits;
+    };
+
+    // Get first set of commits if there is nothing in LocalStorage, otherwise load it from localStorage
+    if (!$scope.$storage.commits || $scope.$storage.commits.length === 0) {
+      $scope.getNextCommits();
+    }
+    else {
+      $scope.commits = $scope.$storage.commits;
+      GitHubCommits.currentPage = $scope.$storage.page;
+    }
+
   });
