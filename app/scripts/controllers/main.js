@@ -32,7 +32,7 @@ angular.module('ffhsWswpDatensammlungApp')
     };
 
     // Auth with GitHub
-    GitHubAuth.auth().then(function (data) {
+    GitHubAuth.authenticate().then(function () {
       $scope.isAuthorized = true;
     }, function (error) {
       $scope.error = error;
